@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: ./compose/go/Dockerfile
+    image: go_crud_app
+    container_name: go_crud_app
+    platform: linux/x86_64
