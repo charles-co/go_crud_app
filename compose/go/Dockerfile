@@ -1,12 +1,23 @@
-FROM golang:1.19 AS builder
-WORKDIR /go/src/go_crud_app
-COPY ./ ./
-RUN CGO_ENABLED=0 GOOS=linux go build -o app .
+# Build stage
+FROM golang:1.19 as builder
 
-FROM alpine:latest  
-RUN apk --no-cache add ca-certificates tzdata
+ENV GO111MODULE=on
+
+WORKDIR /go/src/go_crud_app
+
+COPY go.mod go.sum ./
+RUN go mod download
+
+COPY . .
+RUN CGO_ENABLED=0 go build -o /app .
+
+# Final stage
+FROM alpine
+
 WORKDIR /root/
+
 COPY --from=builder /go/src/go_crud_app/app ./app
 RUN ls /root/
-COPY migrations migrations
-CMD ["./app"]  
+
+EXPOSE 8080
+CMD ["./app"]
