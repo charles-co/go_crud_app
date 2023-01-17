@@ -11,5 +11,6 @@ func main() {
 	r := mux.NewRouter()
 	routes.ResgisterBookStoreRoutes(r)
 	http.Handle("/", r)
+	log.Println("Listening on port 8080...")
 	log.Fatal(http.ListenAndServe(":8080", r))
 }

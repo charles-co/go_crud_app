@@ -9,7 +9,10 @@ COPY go.mod go.sum ./
 RUN go mod download
 
 COPY . .
-RUN CGO_ENABLED=0 go build -o /app .
+
+RUN CGO_ENABLED=0 go build -o ./app ./cmd/main
+
+RUN ls
 
 # Final stage
 FROM alpine
