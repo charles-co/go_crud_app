@@ -1,0 +1,125 @@
+basePath: /api/v1
+definitions:
+  github_com_charles-co_go_crud_app_pkg_models.Book:
+    properties:
+      author:
+        type: string
+      createdAt:
+        type: string
+      deletedAt:
+        $ref: '#/definitions/gorm.DeletedAt'
+      id:
+        type: integer
+      name:
+        type: string
+      price:
+        type: number
+      updatedAt:
+        type: string
+    type: object
+  gorm.DeletedAt:
+    properties:
+      time:
+        type: string
+      valid:
+        description: Valid is true if Time is not NULL
+        type: boolean
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: This is a sample server for a book store.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Book Store API
+  version: "1.0"
+paths:
+  /books:
+    delete:
+      operationId: delete-book
+      parameters:
+      - description: book item
+        in: body
+        name: book
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_charles-co_go_crud_app_pkg_models.Book'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+          schema:
+            $ref: '#/definitions/github_com_charles-co_go_crud_app_pkg_models.Book'
+      summary: delete a book item
+    get:
+      operationId: get-books
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/github_com_charles-co_go_crud_app_pkg_models.Book'
+            type: array
+      summary: get all books
+    post:
+      operationId: create-book
+      parameters:
+      - description: book item
+        in: body
+        name: book
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_charles-co_go_crud_app_pkg_models.Book'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/github_com_charles-co_go_crud_app_pkg_models.Book'
+      summary: create a book item
+    put:
+      operationId: update-book
+      parameters:
+      - description: book item
+        in: body
+        name: book
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_charles-co_go_crud_app_pkg_models.Book'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_charles-co_go_crud_app_pkg_models.Book'
+      summary: update a book item
+  /books/{id}:
+    get:
+      operationId: get-book-by-id
+      parameters:
+      - description: book ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_charles-co_go_crud_app_pkg_models.Book'
+      summary: get a book item by ID
+schemes:
+- http
+swagger: "2.0"
