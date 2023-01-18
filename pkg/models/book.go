@@ -36,10 +36,11 @@ func (b *Book) GetBooks() (*[]Book, error) {
 }
 
 func (b *Book) GetBook(id string) (*Book, error) {
-	if err := db.Where("id = ?", id).First(&b).Error; err != nil {
+	var book Book
+	if err := db.Where("id = ?", id).First(&book).Error; err != nil {
 		return &Book{}, err
 	}
-	return b, nil
+	return &book, nil
 }
 
 func (b *Book) UpdateBook(id string) (*Book, error) {
