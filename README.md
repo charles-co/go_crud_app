@@ -1,1 +1,1 @@
-Experimenting with golang.
+Experimenting with golang API.
